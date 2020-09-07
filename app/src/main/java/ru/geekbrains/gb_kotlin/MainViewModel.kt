@@ -6,10 +6,17 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
     private val viewStateLiveData = MutableLiveData<String>()
+    private val model = Model()
 
     init {
-        viewStateLiveData.value = "Hello!"
+        model.counterLiveData().observeForever(){
+            viewStateLiveData.value = "Hello!"+ it
+        }
     }
 
     fun getViewState(): LiveData<String> = viewStateLiveData
+
+    fun buttonClick(){
+        model.riseCounter()
+    }
 }
